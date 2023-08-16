@@ -1,20 +1,14 @@
 {
-    "main": {
-        "mask": "Masks/mask204.png",
-        "1st-image": "Image/gothru/20180109213524.BiCfgQ_thumb.jpg",
-        "2nd-image": "Image/gothru/20180109213527.eVHVKN_thumb.jpg",
-        "output-image": "build/mask204.jpg",
-        "output-json": "build/mask204.json"
-    },
     "frame": {
+        "mask": "Masks/mask_side.png",
         "offset-top": 0.2,
         "offset-left": 0.0,
         "offset-right": 0.0,
         "offset-bottom": 0.2
     },
     "sphorb": {
-        "nfeatures": 20000,
-        "nlevels": 9,
+        "nfeatures": 10000,
+        "nlevels": 7,
         "barrier": 20,
         "ratio-match": 0.75
     }
