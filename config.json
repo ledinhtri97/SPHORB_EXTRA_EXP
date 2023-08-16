@@ -1,9 +1,10 @@
 {
     "main": {
+        "mask": "Masks/mask204.png",
         "1st-image": "Image/gothru/20180109213524.BiCfgQ_thumb.jpg",
         "2nd-image": "Image/gothru/20180109213527.eVHVKN_thumb.jpg",
-        "output-image": "matchCrop3.jpg",
-        "output-json": "matchCrop3.json"
+        "output-image": "build/mask204.jpg",
+        "output-json": "build/mask204.json"
     },
     "frame": {
         "offset-top": 0.2,

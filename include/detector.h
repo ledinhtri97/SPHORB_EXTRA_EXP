@@ -30,12 +30,23 @@
 using namespace std;
 using namespace cv;
 
-typedef Point xy;																			
-typedef unsigned char detectbyte;																	
+typedef Point xy;
+typedef unsigned char detectbyte;
 
-xy* sfast_corner_detect(const detectbyte* im, const detectbyte* mask, int xsize, int xstride, int ysize, int barrier, int* num);
+// K 表示 patternSize 的一半，用于判断是否特征显著的点过半
+// N = 3*K+1 ，用于 patternSize 的绕一圈的列表循环
+const int patternSize = 18;
+const int K = patternSize/2, N = 3*K+1;
 
-int sfast_corner_score(const detectbyte* im, const int pixel[], int bstart);
+void makeOffsets(int pixel[], int xstride, int pixel_size);
+
+void sfast(Mat img, Mat imgMask, Mat geoMask, int threshold, bool nonmax_suppression,
+           const int partIndex, vector<KeyPoint>& keypoints);
+
+//xy* sfast_corner_detect(const detectbyte* im, const detectbyte* mask, int xsize, int xstride, int ysize, int barrier, int* num);
+xy* sfast_corner_detect(const detectbyte* im, const detectbyte* im_custom_mask, const detectbyte* mask, int xsize, int xstride, int ysize, int barrier, int* num);
+
+int sfast_corner_score(const detectbyte* im, const int pixel[], int threshold);
 
 int* sfastScore(const unsigned char* i, int stride, xy* corners, int num_corners, int b);
 

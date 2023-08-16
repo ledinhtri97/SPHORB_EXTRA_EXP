@@ -45,6 +45,7 @@ int main(int argc, char * argv[])
 		return 1;
 	}
 	
+	string maskPath = config["main"]["mask"];
 	string fimage = config["main"]["1st-image"];
 	string simage = config["main"]["2nd-image"];
 	string omatches = config["main"]["output-image"];
@@ -67,22 +68,25 @@ int main(int argc, char * argv[])
 		config["frame"]["offset-right"], 
 		config["frame"]["offset-bottom"]
 	};
-
-	SPHORB sorb(nfeatures, nlevels, barrier);
 	
 	Mat img1 = imread(fimage);
 	Mat img2 = imread(simage);
 	resize(img1, img1, Size(1280, 640), 0, 0, INTER_AREA);
 	resize(img2, img2, Size(1280, 640), 0, 0, INTER_AREA);
 
+	Mat imgMask = Mat();
+	if (!maskPath.empty()) {
+		imgMask = imread(maskPath, IMREAD_GRAYSCALE);
+	}
+
 	Mat descriptors1;
 	Mat descriptors2;
-
 	vector<KeyPoint> kPoint1;
 	vector<KeyPoint> kPoint2;
 
-	sorb(img1, Mat(), kPoint1, descriptors1);
-	sorb(img2, Mat(), kPoint2, descriptors2); 
+	SPHORB sorb(nfeatures, nlevels, barrier);
+	sorb(img1, imgMask, kPoint1, descriptors1);
+	sorb(img2, imgMask, kPoint2, descriptors2); 
 
 	cout<<"Keypoint1: "<<kPoint1.size()<<", Keypoint2: "<<kPoint2.size()<<endl;
 
@@ -106,6 +110,9 @@ int main(int argc, char * argv[])
 		static_cast<int>((1-offsets[2]) * img2.cols),
 		static_cast<int>((1-offsets[3]) * img2.rows)
 	};
+	cout << "Roi 1: (" << roiImage1[0] << ", " << roiImage1[1] << ") (" << roiImage1[2] << ", " << roiImage1[3] << ")" << endl;
+	cout << "Roi 2: (" << roiImage2[0] << ", " << roiImage2[1] << ") (" << roiImage2[2] << ", " << roiImage2[3] << ")" << endl;
+
 	Rect rect1(roiImage1[0], roiImage1[1], roiImage1[2] - roiImage1[0], roiImage1[3] - roiImage1[1]);
 	Rect rect2(roiImage2[0], roiImage2[1], roiImage2[2] - roiImage2[0], roiImage2[3] - roiImage2[1]);
 	rectangle(img1, rect1, Scalar(0, 0, 255), 2);
@@ -114,8 +121,8 @@ int main(int argc, char * argv[])
 		int i1 = m->queryIdx;
 		int i2 = m->trainIdx;
 		const KeyPoint &kp1 = kPoint1[i1], &kp2 = kPoint2[i2];
-		if (kp1.pt.x < roiImage1[0] || kp1.pt.y < roiImage1[1] || kp1.pt.x > roiImage1[2] || kp1.pt.y > roiImage1[2]
-		|| kp2.pt.x < roiImage1[0] || kp2.pt.y < roiImage1[1] || kp2.pt.x > roiImage1[2] || kp2.pt.y > roiImage1[2]) {
+		if (kp1.pt.x < roiImage1[0] || kp1.pt.y < roiImage1[1] || kp1.pt.x > roiImage1[2] || kp1.pt.y > roiImage1[3]
+		|| kp2.pt.x < roiImage2[0] || kp2.pt.y < roiImage2[1] || kp2.pt.x > roiImage2[2] || kp2.pt.y > roiImage2[3]) {
 			m = matches.erase(m);
 		} else {
 			++m;

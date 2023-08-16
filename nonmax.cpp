@@ -25,7 +25,7 @@
 
 #define Compare(X, Y) ((X)>=(Y))
 
-static void makeOffsets(int pixel[], int xstride)
+void makeOffsets(int pixel[], int xstride, int pixel_size)
 {
 	pixel[0] = 0 + 3 * xstride;		
 	pixel[1] = 1 + 2 * xstride;		
@@ -45,14 +45,22 @@ static void makeOffsets(int pixel[], int xstride)
 	pixel[15] = -3 + 3 * xstride;		
 	pixel[16] = -2 + 3 * xstride;		
 	pixel[17] = -1 + 3 * xstride;
+
+    if(pixel_size > 18)
+    {
+        for(int i=18; i<pixel_size; i++)
+        {
+            pixel[i] = pixel[i-18];
+        }
+    }
 }
 
 int* sfastScore(const unsigned char* i, int stride, xy* corners, int num_corners, int b)
 {	
 	int* scores = (int*)malloc(sizeof(int)* num_corners);
 
-	int pixel[18];
-	makeOffsets(pixel, stride);
+    int pixel[N];
+    makeOffsets(pixel, stride, N);
 
 	for(int n=0; n < num_corners; n++)
 		scores[n] = sfast_corner_score(i + corners[n].y*stride + corners[n].x, pixel, b);
