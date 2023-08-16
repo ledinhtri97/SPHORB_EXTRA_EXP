@@ -41,16 +41,16 @@
 */
 
 #include "detector.h"																			
-xy* sfast_corner_detect(const byte* im, const byte* mask, int xsize, int xstride, int ysize, int barrier, int* num)	
+xy* sfast_corner_detect(const detectbyte* im, const detectbyte* mask, int xsize, int xstride, int ysize, int barrier, int* num)	
 {																								
 	int boundary = 18, y, cb, c_b;																
-	const byte  *line_max, *line_min;															
+	const detectbyte* line_max, *line_min;															
 	int			rsize=512, total=0;																
 	xy	 		*ret = (xy*)malloc(rsize*sizeof(xy));											
-	const byte  *pMask;											
-	const byte* cache_0;
-	const byte* cache_1;
-	const byte* cache_2;
+	const detectbyte* pMask;											
+	const detectbyte* cache_0;
+	const detectbyte* cache_1;
+	const detectbyte* cache_2;
 	int	pixel[18];																				
 	pixel[0] = 0 + 3 * xstride;		
 	pixel[1] = 1 + 2 * xstride;		
@@ -8373,14 +8373,14 @@ xy* sfast_corner_detect(const byte* im, const byte* mask, int xsize, int xstride
 	return ret;																					
 }																								
 																								
-int sfast_corner_score(const byte* im, const int pixel[], int bstart)                        	
+int sfast_corner_score(const detectbyte* im, const int pixel[], int bstart)                        	
 {                                                                                              
 	int bmin = bstart;                                                                          
 	int bmax = 255;                                                                             
 	int b = (bmax + bmin)/2;                                                                    
-	const byte* cache_0 = im;                                                                   
-	const byte* cache_1 = cache_0 + pixel[14];
-	const byte* cache_2 = cache_0 + pixel[5];
+	const detectbyte* cache_0 = im;                                                                   
+	const detectbyte* cache_1 = cache_0 + pixel[14];
+	const detectbyte* cache_2 = cache_0 + pixel[5];
 	for(;;)																						
 	{																							
 		int cb = *cache_0 + b;																	

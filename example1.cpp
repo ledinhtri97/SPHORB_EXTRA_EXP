@@ -58,7 +58,7 @@ int main(int argc, char * argv[])
 
 	Mat imgMatches;
 	::drawMatches(img1, kPoint1, img2, kPoint2, matches, imgMatches, Scalar::all(-1), Scalar::all(-1),  
-		vector<char>(), DrawMatchesFlags::NOT_DRAW_SINGLE_POINTS,true);
+		vector<char>(), DrawMatchesFlags::NOT_DRAW_SINGLE_POINTS, true);
 
 	imwrite("1_matches.jpg", imgMatches);
 

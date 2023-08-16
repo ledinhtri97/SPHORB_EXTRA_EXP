@@ -27,6 +27,7 @@
 #include <vector>
 #include <opencv2/opencv.hpp>
 using namespace cv;
+using namespace std;
 
 typedef vector<DMatch> Matches;
 void ratioTest(const std::vector<Matches>& knMatches, float maxRatio, Matches& goodMatches);
@@ -34,6 +35,6 @@ void ratioTest(const std::vector<Matches>& knMatches, float maxRatio, Matches& g
 void drawMatches(const Mat& img1, const vector<KeyPoint>& keypoints1,
 	const Mat& img2, const vector<KeyPoint>& keypoints2,
 	const vector<DMatch>& matches1to2, Mat& outImg, const Scalar& matchColor, const Scalar& singlePointColor,
-	const vector<char>& matchesMask, int flags , bool vertical);
+	const vector<char>& matchesMask, DrawMatchesFlags flags , bool vertical);
 
 #endif

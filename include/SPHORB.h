@@ -28,6 +28,7 @@
 #include <vector>
 #include <stdio.h>
 using namespace cv;
+using namespace std;
 
 namespace cv
 {
@@ -43,11 +44,11 @@ namespace cv
 		int descriptorSize() const;
 		// returns the descriptor type
 		int descriptorType() const;
-
 		// Compute the ORB features and descriptors on an image
 		void operator()(InputArray image, InputArray mask, vector<KeyPoint>& keypoints) const;
 		void operator()( InputArray image, InputArray mask, vector<KeyPoint>& keypoints,
                      OutputArray descriptors, bool useProvidedKeypoints=false ) const;
+		
 
 	protected:
 		int barrier;

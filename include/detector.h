@@ -30,12 +30,12 @@
 using namespace std;
 using namespace cv;
 
-typedef CvPoint xy;																			
-typedef unsigned char byte;																	
+typedef Point xy;																			
+typedef unsigned char detectbyte;																	
 
-xy* sfast_corner_detect(const byte* im, const byte* mask, int xsize, int xstride, int ysize, int barrier, int* num);
+xy* sfast_corner_detect(const detectbyte* im, const detectbyte* mask, int xsize, int xstride, int ysize, int barrier, int* num);
 
-int sfast_corner_score(const byte* im, const int pixel[], int bstart);
+int sfast_corner_score(const detectbyte* im, const int pixel[], int bstart);
 
 int* sfastScore(const unsigned char* i, int stride, xy* corners, int num_corners, int b);
 

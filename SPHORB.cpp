@@ -381,7 +381,7 @@ static void computeOrientation(const Mat& image, vector<KeyPoint>& kps, int half
 	}
 }
 
-static void computeOrbDescriptor(const KeyPoint& kpt, const Mat& img, const Point* pattern, byte* desc, int dsize)
+static void computeOrbDescriptor(const KeyPoint& kpt, const Mat& img, const Point* pattern, detectbyte* desc, int dsize)
 {
 	float angle = kpt.angle;
 	angle *= (float)(CV_PI/180.f);
@@ -785,7 +785,7 @@ void SPHORB::operator()(InputArray _image, InputArray _mask, vector<KeyPoint>& _
 	Mat temp = _image.getMat();
 	Mat descriptors;
     if( temp.type() != CV_8UC1 )
-        cvtColor(_image, temp, CV_BGR2GRAY);
+        cvtColor(_image, temp, COLOR_BGR2GRAY);
 
 	// compute how many features should be detected on every scale space level
 	vector<int> nfeaturesPerLevel(nlevels);
@@ -811,14 +811,13 @@ void SPHORB::operator()(InputArray _image, InputArray _mask, vector<KeyPoint>& _
 
 	std::copy(pattern0, pattern0 + 512, std::back_inserter(pattern));
 	
-
 	// detect and describe the features on every level
 	for (int l=0;l<nlevels;l++)
 	{
 		// resize the spherical image
 		Size sz(cells[l]*5, cells[l]*5/2);
 		Mat image(sz, temp.type());
-		resize(temp, image, sz, 0, 0, CV_INTER_AREA);
+		resize(temp, image, sz, 0, 0, INTER_AREA);
 
 		// split the spherical image to five parts
 		Mat subImg[5];
@@ -846,7 +845,6 @@ void SPHORB::operator()(InputArray _image, InputArray _mask, vector<KeyPoint>& _
 							maskes[l].cols, (int)maskes[l].step, maskes[l].rows, barrier, &cor_num);
 			score = sfastScore(&subImg[i].at<uchar>(0,0), (int)subImg[i].step, corners, cor_num, barrier);
 			sfastNonmaxSuppression(corners, score, cor_num, partKeyPoints, i);
-
 			levelKeyPoints.insert(levelKeyPoints.end(), partKeyPoints.begin(), partKeyPoints.end());
 			
 			delete[] corners;
