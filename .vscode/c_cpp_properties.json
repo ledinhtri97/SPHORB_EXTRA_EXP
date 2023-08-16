@@ -1,0 +1,31 @@
+{
+    "configurations": [
+        {
+            "name": "Linux",
+            "includePath": [
+                "${workspaceFolder}/**",
+                // "/data/header/cuda-11.1/include/",
+                "/usr/include/glib-2.0/",
+                "/usr/include/gstreamer-1.0/",
+                "/usr/lib/x86_64-linux-gnu/glib-2.0/include/",
+                // "/usr/include/json-glib-1.0/",
+                "/usr/include/uuid/",
+                "/usr/local/include/opencv4",
+                // "/usr/local/include/librdkafka"
+                // "/usr/local/include/glib-2.0/",
+                // "/usr/local/include/gstreamer-1.0/",
+                // "/usr/local/opt/json-glib/include/json-glib-1.0/json-glib/",
+                // "/usr/local/opt/ossp-uuid/include/ossp/",
+                // "/usr/local/include/opencv4",
+                // "/usr/local/opt/curl/include/curl/",
+                // "/usr/local/opt/cuda-11/include/"
+            ],
+            "defines": [],
+            "compilerPath": "/usr/bin/gcc",
+            "cStandard": "gnu11",
+            "cppStandard": "gnu++14",
+            "intelliSenseMode": "linux-gcc-x64"
+        }
+    ],
+    "version": 4
+}

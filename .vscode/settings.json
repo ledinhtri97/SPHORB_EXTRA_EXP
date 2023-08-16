@@ -1,0 +1,8 @@
+{
+    "files.associations": {
+        "*.py": "python",
+        "*.js": "javascriptreact",
+        "random": "cpp",
+        "ostream": "cpp"
+    }
+}

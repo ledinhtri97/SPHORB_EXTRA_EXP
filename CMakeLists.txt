@@ -1,5 +1,5 @@
 
-cmake_minimum_required(VERSION 2.6 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.26 FATAL_ERROR)
 project(sphorb)
 
 find_package(OpenCV REQUIRED)
@@ -24,3 +24,12 @@ add_executable (example2 example2.cpp
                          SPHORB.cpp)
 
 target_link_libraries (example2 ${OpenCV_LIBRARIES})
+
+add_executable (example3 example3.cpp
+                         pfm.cpp
+                         utility.cpp
+                         detector.cpp
+                         nonmax.cpp
+                         SPHORB.cpp)
+
+target_link_libraries (example3 ${OpenCV_LIBRARIES})
